@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/544.a28314a6.chunk.css","mappings":"AAAA,IACI,YACJ,CAEA,wBAEI,YAAa,CADb,oBAEJ","sources":["css/Navigation.module.css"],"sourcesContent":["nav {\r\n    display: flex;\r\n}\r\n\r\n.link {\r\n    text-decoration: none;\r\n    padding: 12px;\r\n}"],"names":[],"sourceRoot":""}
