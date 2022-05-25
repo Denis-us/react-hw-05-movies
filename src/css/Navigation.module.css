@@ -1,0 +1,8 @@
+nav {
+    display: flex;
+}
+
+.link {
+    text-decoration: none;
+    padding: 12px;
+}
