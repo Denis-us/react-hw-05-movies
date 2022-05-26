@@ -13,9 +13,12 @@ export default function MoviesPage() {
     const {pathname} = location
 
     useEffect(() => {
+        if(!title) {
+            return
+        }
+
         fetch.searchMovie(title).then(res =>
             setMovies(res.data.results))
-        
     }, [title])
 
     const handleFormSubmit = (title) => {
@@ -29,8 +32,10 @@ export default function MoviesPage() {
             {movies && 
                 <ul>
                     {movies.map(movie => (
-                        <li>
-                            <Link to={`${pathname}/${movie.id}`}>{movie.original_title}</Link>
+                        <li key={movie.id}>
+                            <Link to={`${pathname}/${movie.id}`}>
+                                {movie.original_title}
+                            </Link>
                         </li>))}
                 </ul>
             }

@@ -27,9 +27,6 @@ export default function Movies () {
                 <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
         </Suspense>
-
-            
-            
         </>
     )
 }

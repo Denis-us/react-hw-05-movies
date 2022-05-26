@@ -10,7 +10,8 @@ export default function MovieDetailsPage() {
     const navigate = useNavigate()
     const {movieId} = useParams()
 
-    const goBack = () => navigate('/')
+    const goBack = () => navigate(-1)   
+
 
 
     const [movie, setMovie] = useState([])

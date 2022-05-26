@@ -6,7 +6,7 @@ export default function Actors ({cast}) {
         <>
             <ul className={s.actorsList}>
                 {cast.map(actor => 
-                    <OneActor id={actor.id} profile={actor.profile_path} name={actor.name} character={actor.character}/>
+                    <OneActor key={actor.id} profile={actor.profile_path} name={actor.name} character={actor.character}/>
                 )}
             </ul>
         </>
