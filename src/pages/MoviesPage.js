@@ -1,39 +1,43 @@
 import { useState, useEffect} from "react"
-import {Link} from 'react-router-dom'
+import {Link, useSearchParams } from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import fetch from "../services/api"
 import Form from '../components/Form'
 
 
 export default function MoviesPage() {
-    const [title, setTitle] = useState('')
     const [movies, setMovies] = useState([])
+    const [queryParam, setQueryParam] = useSearchParams({});
+
+    const PARAM_QUERY = 'query';
 
     const location = useLocation()
     const {pathname} = location
 
+
+
     useEffect(() => {
-        if(!title) {
-            return
-        }
+        const query = queryParam.get(PARAM_QUERY);
+    
+        if (query) handleSearch(query);
+      }, []);
 
-        fetch.searchMovie(title).then(res =>
+      const handleSearch = (query) => {
+        setQueryParam({ [PARAM_QUERY]: query });
+
+        fetch.searchMovie(query).then(res =>
             setMovies(res.data.results))
-    }, [title])
-
-    const handleFormSubmit = (title) => {
-        setTitle(title)
-    }
+      }
 
     return (
         <>
-            <Form onSubmit={handleFormSubmit}/>
+            <Form onSubmit={handleSearch}/>
 
             {movies && 
                 <ul>
                     {movies.map(movie => (
                         <li key={movie.id}>
-                            <Link to={`${pathname}/${movie.id}`}>
+                            <Link to={`${pathname}/${movie.id}`} state={{from: location}}>
                                 {movie.original_title}
                             </Link>
                         </li>))}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams, useNavigate, Link, Outlet } from "react-router-dom";
+import { useParams, useNavigate, Link, Outlet, useLocation } from "react-router-dom";
 import fetch from "../services/api";
 import Button from '../components/Button'
 import Movie from '../components/Movie'
@@ -9,12 +9,26 @@ import s from '../css/MovieDetailsPage.module.css'
 export default function MovieDetailsPage() {
     const navigate = useNavigate()
     const {movieId} = useParams()
+    // const location = useLocation()
+    const {state} = useLocation()
 
-    const goBack = () => navigate(-1)   
-
-
-
+    const [from, setFrom] = useState(null)
     const [movie, setMovie] = useState([])
+
+     
+
+    useEffect(() => {
+        if (state?.from) {
+            const {pathname, search} = state.from
+            setFrom(`${pathname}${search}`)
+            return
+        } else {
+            setFrom('/')
+        }
+    }, [state?.from])
+
+    const goBack = () => navigate(from)  
+
 
     useEffect(() => {
         fetch.movieDetails(movieId).then(res => res.data).then(({id, poster_path, original_title, overview, genres}) =>  
